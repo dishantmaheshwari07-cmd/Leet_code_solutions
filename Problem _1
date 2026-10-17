@@ -1,0 +1,67 @@
+#q1 -> max sum path tree with time complexity O(n) n = no. of nodes and space = o(h) h = height of tree
+
+class Node():
+	def __init__(self , value , left = None , right = None):
+		self.data = value
+		self.left = left
+		self.right = right 
+		
+max_sum = float('-inf')
+
+def find_max_sum(node):
+	
+	if node is None:
+		return 0
+	
+	global max_sum
+	if not max_sum:
+		max_sum = node.data
+		
+		
+	left = find_max_sum(node.left) 
+	right = find_max_sum(node.right) 
+	
+	left = 0 if left < 0 else left
+	right = 0 if right < 0 else right
+	
+	local_best = node.data + left + right
+	
+	if local_best > max_sum:
+		max_sum = local_best		
+	
+	return max(left , right) + node.data	
+	
+
+# Building the tree from our discussion:
+#        -10
+#        /  \
+#       9   20
+#          /  \
+#         15   7
+# Building a complex test tree:
+#          -5
+#         /  \
+#        4    8
+#       /    / \
+#      11  -13  4
+#     /  \       \
+#    7    2       1
+
+root = Node(-5)
+root.left = Node(4)
+root.right = Node(8)
+
+root.left.left = Node(11)
+root.left.left.left = Node(7)
+root.left.left.right = Node(2)
+
+root.right.left = Node(-13)
+root.right.right = Node(4)
+root.right.right.right = Node(1)
+
+
+# Run your function
+find_max_sum(root)
+
+# Print the final output
+print("Maximum Path Sum:", max_sum)

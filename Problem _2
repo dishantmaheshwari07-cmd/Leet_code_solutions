@@ -1,0 +1,20 @@
+nums = [2, 3, 0, 1, 4]
+
+class Solution():
+	def jump (self , nums):
+		total_jump = cur_zone =  global_max = 0
+		n = len(nums)
+		
+		for j in range(n -1):
+						
+			global_max = max(global_max , nums[j] + j) #2
+			
+			if j == cur_zone:
+				cur_zone = global_max
+				total_jump+= 1
+		
+		
+		return total_jump
+	
+s1 = Solution()
+print(s1.jump (nums))
